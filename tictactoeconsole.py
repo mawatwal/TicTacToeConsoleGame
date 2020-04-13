@@ -7,6 +7,7 @@ board = ["_", "_", "_",
          "_", "_", "_",
          "_", "_", "_"]
 
+# definiton to display the board
 def display_board():
     print("\n")
     print(board[0]+" "+ board[1]+" "+ board[2])
@@ -24,15 +25,17 @@ def play_game():
         print(game_winner + " won")
     elif game_winner == None:
         print("It's a Tie.")
-        
+
+# definition to take input from player and put it in the board position
 def player_turn(player):
     print(player + " 's turn.")
     position = input("Choose a position from 1 to 9: ")
     valid = False
+    # to check whether the player has input the correct input in-bound
     while not valid:
         while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
             position = input("Invalid input. Choose a position")
-        
+        # to convert input string into integer value and subtract 1 from the converted integer value
         position = int(position) - 1
         
         if board[position] == "_":
@@ -42,11 +45,14 @@ def player_turn(player):
     
     board[position] = player
     display_board()
-    
+ 
+# definiton to check whether the game is over or not
 def check_if_game_over():
+    # game will be over by either a tie (in case none of the spaces are left in the board) or a win
     check_for_winner()
     check_if_tie()
 
+# definition to check whether there is a winner
 def check_for_winner():
     global game_winner
     row_winner = check_rows()
@@ -62,6 +68,7 @@ def check_for_winner():
         game_winner = None
     return
 
+# definition to check whether the win is due to rows
 def check_rows():
     global game_still_going
     row_1 = board[0] == board[1] == board[2] != "_"
@@ -79,6 +86,7 @@ def check_rows():
         return None
     return
 
+# definition to check whether the win is due to columns
 def check_columns():
     global game_still_going
     column_1 = board[0] == board[3] == board[6] != "_"
@@ -96,6 +104,7 @@ def check_columns():
         return None
     return
 
+# definiton to check whether the win is due to diagonals
 def check_diagonals():
     global game_still_going
     diagonal_1 = board[0] == board[4] == board[8] != "_"
@@ -110,6 +119,7 @@ def check_diagonals():
         return None
     return
 
+# definition to check if there is a tie
 def check_if_tie():
     global game_still_going
     if "_" not in board:
@@ -118,6 +128,7 @@ def check_if_tie():
     else:
         return False
 
+# definition to change the player / flip the player
 def change_player():
     global current_player
     if current_player == "X":
@@ -126,4 +137,5 @@ def change_player():
         current_player = "X"
     return
 
+# call the main function for execution
 play_game()
